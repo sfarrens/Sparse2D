@@ -15,8 +15,15 @@ matrix:
 
 # install dependencies
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install -y libcfitsio3-dev ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      sudo apt-get -qq update
+      sudo apt-get install
+    elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update
+      brew install gcc-7 cfitsio cmake
+      export CXX=g++-7
+      export CC=gcc-7
+    fi
 
 # set up installation
 install:
