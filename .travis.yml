@@ -5,7 +5,7 @@ branches:
   only:
   - master
 
-# System Set-up
+# Operating System Set-up 
 matrix:
   include:
     - os: linux
