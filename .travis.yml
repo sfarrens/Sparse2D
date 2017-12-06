@@ -5,12 +5,18 @@ branches:
   only:
   - master
 
-sudo: false
+# System Set-up
+matrix:
+  include:
+    - os: linux
+      sudo: false
+    - os: osx
+      osx_image: xcode9.1
 
 # install dependencies
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libcfitsio3-dev
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install -y libcfitsio3-dev ; fi
 
 # set up installation
 install:
