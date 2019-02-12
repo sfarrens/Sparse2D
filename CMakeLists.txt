@@ -49,15 +49,23 @@ project(sparse2d)
   option(COMPILE_NFFT "Get and compile NFFT" OFF)
   include(BuildNFFT)
 
+  if(BUILD_STATIC)
+    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+    SET(BUILD_SHARED_LIBS OFF)
+    SET(CMAKE_EXE_LINKER_FLAGS "-static")
+    SET(STATIC_FLAGS "-static-libgcc -static-libstdc++")
+    message(STATUS "Building static executables")
+  endif(BUILD_STATIC)
+
   # Set compilation flags Mac OSX or any other system
   if(APPLE)
 
     set(CMAKE_CXX_FLAGS_RELEASE "-DMACOS -DNO_DISP_IO -w -g0 -O2 -fPIC \
--fomit-frame-pointer -ffast-math -fopenmp -Wno-write-strings -DNDEBUG ${FFTW_FLAGS}"
+-fomit-frame-pointer -ffast-math -fopenmp -Wno-write-strings -DNDEBUG ${FFTW_FLAGS} ${STATIC_FLAGS}"
     )
 
     set(CMAKE_CXX_FLAGS_DEBUG "-DMACOS -DNO_DISP_IO -w -g0 -fPIC -ffast-math -fopenmp \
--Wno-write-strings ${FFTW_CXX_FLAGS}"
+-Wno-write-strings ${FFTW_CXX_FLAGS} ${STATIC_FLAGS}"
     )
 
     message(STATUS "Using CXX Flags for Mac OSX: ${CMAKE_SYSTEM}")
@@ -65,16 +73,18 @@ project(sparse2d)
   else(APPLE)
 
     set(CMAKE_CXX_FLAGS_RELEASE "-DNO_DISP_IO -g0 -O2 -fPIC \
--fomit-frame-pointer -fopenmp -Wno-write-strings -DNDEBUG ${FFTW_FLAGS}"
+-fomit-frame-pointer -fopenmp -Wno-write-strings -DNDEBUG ${FFTW_FLAGS} ${STATIC_FLAGS}"
     )
 
     set(CMAKE_CXX_FLAGS_DEBUG "-DNO_DISP_IO -g -fPIC -fopenmp \
--Wno-write-strings ${FFTW_CXX_FLAGS}"
+-Wno-write-strings ${FFTW_CXX_FLAGS} ${STATIC_FLAGS}"
     )
 
     message(STATUS "Using CXX Flags for ${CMAKE_SYSTEM}")
 
   endif(APPLE)
+
+  option(BUILD_STATIC "Build static executables" OFF)
 
   # Build tools library
   FILE(GLOB src_lib1  "${PROJECT_SOURCE_DIR}/src/libtools/*.cc")
