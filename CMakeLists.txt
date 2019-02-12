@@ -49,6 +49,9 @@ project(sparse2d)
   option(COMPILE_NFFT "Get and compile NFFT" OFF)
   include(BuildNFFT)
 
+  # Optonal build with static libs
+  option(BUILD_STATIC "Build with static libs" OFF)
+
   if(BUILD_STATIC)
     SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
     SET(BUILD_SHARED_LIBS OFF)
