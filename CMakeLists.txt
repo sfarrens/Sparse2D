@@ -87,8 +87,6 @@ project(sparse2d)
 
   endif(APPLE)
 
-  option(BUILD_STATIC "Build static executables" OFF)
-
   # Build tools library
   FILE(GLOB src_lib1  "${PROJECT_SOURCE_DIR}/src/libtools/*.cc")
   include_directories("${PROJECT_SOURCE_DIR}/src/libtools")
