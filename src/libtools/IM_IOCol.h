@@ -6,21 +6,21 @@
 **
 **    Author: Jean-Luc Starck
 **
-**    Date:  11/04/00 
-**    
+**    Date:  11/04/00
+**
 **    File:  IM_IOCol.h
 **
 *******************************************************************************
 **
 **    DESCRIPTION  Tiff, Gif, and JPEG image definition
-**    ----------- 
-**                 
+**    -----------
+**
 ******************************************************************************/
 
 #ifndef _IM_IOCOL_H_
 #define _IM_IOCOL_H_
 
-typedef unsigned char byte;
+typedef unsigned char mybyte;
 typedef unsigned short u_short;
 typedef unsigned char u_char;
 typedef unsigned int u_int;
@@ -34,19 +34,19 @@ typedef unsigned int u_int;
 #define F_BWDITHER  2
 #define F_GREYSCALE 1
 
-/* MONO returns total intensity of r,g,bfor (i=0; i<256; i++) pinfo.g[i] = (byte) i;
-   for (i=0; i<256; i++) pinfo.r[i] = (byte) i;
-   for (i=0; i<256; i++) pinfo.b[i] = (byte) i;
+/* MONO returns total intensity of r,g,bfor (i=0; i<256; i++) pinfo.g[i] = (mybyte) i;
+   for (i=0; i<256; i++) pinfo.r[i] = (mybyte) i;
+   for (i=0; i<256; i++) pinfo.b[i] = (mybyte) i;
      (i = .33R + .5G + .17B) */
 #define MONO(rd,gn,bl) ( ((int)(rd)*11 + (int)(gn)*16 + (int)(bl)*5) >> 5)
 
 
 /* info structure filled in by the LoadXXX() image reading routines */
-typedef struct { byte *pic;                  /* image data */
+typedef struct { mybyte *pic;                  /* image data */
 	         int   w, h;                 /* pic size */
 		 int   type;                 /* PIC8 or PIC24 */
 
-		 byte  r[256],g[256],b[256];
+		 mybyte  r[256],g[256],b[256];
 		                             /* colormap, if PIC8 */
 
 		 int   normw, normh;         /* 'normal size' of image file
@@ -68,22 +68,22 @@ typedef struct { byte *pic;                  /* image data */
 #define xvbzero(s,size) memset(s,0,size)
 
 // Gif format
-inline byte float_to_byte(float V)
+inline mybyte float_to_mybyte(float V)
 {
-   byte Vb;
+   mybyte Vb;
    if (V > 255) Vb = 255;
    else if (V < 0) Vb = 0;
-   else Vb = (byte) V; 
+   else Vb = (mybyte) V;
    return Vb;
 }
-inline byte int_to_byte(int V)
+inline mybyte int_to_mybyte(int V)
 {
-   byte Vb;
+   mybyte Vb;
    if (V > 255) Vb = 255;
    else if (V < 0) Vb = 0;
-   else Vb = (byte) V; 
+   else Vb = (mybyte) V;
    return Vb;
-} 
+}
 
  void gifWarning(char *st);
 char *gifname(char * NameStep);
