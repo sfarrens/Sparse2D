@@ -196,7 +196,7 @@ ${FFTW_FLAGS}"
   # UNIT TESTS #
   # -----------#
 
-  option(RUN_TESTS "Build and run unit tests" ON)
+  option(RUN_TESTS "Build and run unit tests" OFF)
   if(RUN_TESTS)
     # Add unit tests
     enable_testing()

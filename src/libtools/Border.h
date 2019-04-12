@@ -86,9 +86,9 @@ inline int get_index(int i, int N, type_border TB)
       case I_MIRROR: indi = test_index_mirror(i,N); break;
       case I_PERIOD: indi = test_index_period(i,N); break;
       case I_ZERO: break;
-      // default:
-      //    printf("Error: bad parameter bord in  get_index");
-      //    break;
+      default:
+         printf("Error: bad parameter bord in  get_index");
+         break;
     } // end case
     return indi;
 }
