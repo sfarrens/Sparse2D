@@ -8,20 +8,20 @@
 **
 **    Author: Jean-Luc Starck
 **
-**    Date:  96/05/07 
-**    
+**    Date:  96/05/07
+**
 **    File:  Border.h
 **
 *******************************************************************************
 **
-**    DESCRIPTION  
-**    ----------- 
-**                 
-**    PARAMETRES    
-**    ----------    
-** 
-**    RESULTS      
-**    -------  
+**    DESCRIPTION
+**    -----------
+**
+**    PARAMETRES
+**    ----------
+**
+**    RESULTS
+**    -------
 **
 **
 ******************************************************************************/
@@ -85,7 +85,7 @@ inline int get_index(int i, int N, type_border TB)
       case I_CONT: indi = test_index_cont(i,N); break;
       case I_MIRROR: indi = test_index_mirror(i,N); break;
       case I_PERIOD: indi = test_index_period(i,N); break;
-      case I_ZERO:  
+      case I_ZERO: break;
       default:
          printf("Error: bad parameter bord in  get_index");
          break;
@@ -95,4 +95,3 @@ inline int get_index(int i, int N, type_border TB)
 
 
 #endif
-
