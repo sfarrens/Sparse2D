@@ -40,7 +40,7 @@ enum type_border{I_CONT, I_MIRROR, I_PERIOD, I_ZERO};
 
 inline int test_index_zero(int i, int /* N */ )
 {
-  printf("Error: bad parameter bord in  get_index");
+  // printf("Error: bad parameter bord in  get_index");
   return i;
 }
 
