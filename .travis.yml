@@ -35,6 +35,17 @@ matrix:
           packages:
             - libomp
             - *macos_packages
+    - os: osx
+      name: "macOS with vanilla Clang"
+      osx_image: xcode10.2
+      env:
+        - MATRIX_EVAL="export LDFLAGS="-L/usr/local/opt/llvm/lib" && export CPPFLAGS="-I/usr/local/opt/llvm/include" && CC=/usr/local/opt/llvm/bin/clang && CXX=/usr/local/opt/llvm/bin/clang++"
+      addons:
+        homebrew:
+          packages:
+            - llvm
+            - libomp
+            - *macos_packages
 
 before_install:
   - eval "${MATRIX_EVAL}"
