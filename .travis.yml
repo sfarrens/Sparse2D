@@ -52,6 +52,8 @@ before_install:
 
 # set up installation
 install:
+  - echo $LDFLAGS
+  - echo $CPPFLAGS
   - mkdir build
   - cd build
   - cmake .. -DRUN_TESTS=OFF
