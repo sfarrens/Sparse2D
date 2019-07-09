@@ -39,7 +39,7 @@ matrix:
       name: "macOS with vanilla Clang"
       osx_image: xcode10.2
       env:
-        - MATRIX_EVAL="export LDFLAGS="-L/usr/local/opt/llvm/lib" && export CPPFLAGS="-I/usr/local/opt/llvm/include" && CC=/usr/local/opt/llvm/bin/clang && CXX=/usr/local/opt/llvm/bin/clang++"
+        - MATRIX_EVAL="export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm/lib" && export CPPFLAGS="$CPPFLAGS -I/usr/local/opt/llvm/include" && CC=/usr/local/opt/llvm/bin/clang && CXX=/usr/local/opt/llvm/bin/clang++"
       addons:
         homebrew:
           packages:
