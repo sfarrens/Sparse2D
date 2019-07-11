@@ -39,7 +39,7 @@ matrix:
       name: "macOS with vanilla Clang"
       osx_image: xcode10.2
       env:
-        - MATRIX_EVAL="export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm/lib" && export CPPFLAGS="$CPPFLAGS -I/usr/local/opt/llvm/include" && CC=/usr/local/opt/llvm/bin/clang && CXX=/usr/local/opt/llvm/bin/clang++"
+        - MATRIX_EVAL="CC=/usr/local/opt/llvm/bin/clang && CXX=/usr/local/opt/llvm/bin/clang++"
       addons:
         homebrew:
           packages:
@@ -52,6 +52,10 @@ before_install:
 
 # set up installation
 install:
+  - |
+    if [[ "${TRAVIS_JOB_NAME}" = macOS*Clang ]]; then
+      export LDFLAGS="${LDFLAGS} -L$(brew --prefix libomp)/lib"
+    fi
   - echo $LDFLAGS
   - echo $CPPFLAGS
   - mkdir build
