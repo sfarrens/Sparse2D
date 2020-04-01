@@ -19,17 +19,17 @@ matrix:
     - os: linux
     - os: osx
       name: "macOS with GCC"
-      osx_image: xcode10.2
+      osx_image: xcode11.3
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
       addons:
         homebrew:
           packages:
-            - gcc@7
+            - gcc
             - *macos_packages
     - os: osx
       name: "macOS with AppleClang"
-      osx_image: xcode10.2
+      osx_image: xcode11.3
       addons:
         homebrew:
           packages:
