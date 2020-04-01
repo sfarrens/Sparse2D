@@ -2,12 +2,12 @@
 # Build FFTW3 #
 #=============#
 
-set(FFTWVersion 3.3.7)
+set(FFTWVersion 3.3.8)
 
 if(USE_FFTW)
 
   ExternalProject_Add(fftw3
-      URL               https://github.com/FFTW/fftw3/archive/fftw-${FFTWVersion}.tar.gz
+      URL               http://www.fftw.org/fftw-${FFTWVersion}.tar.gz
       CONFIGURE_COMMAND ""
       BUILD_COMMAND     "${CMAKE_SOURCE_DIR}/modules/fftw.cmd"
       SOURCE_DIR        "${MODULE_BUILD_DIR}/fftw"
