@@ -252,6 +252,61 @@ void MatOper::apply_mat(fltarray &B, fltarray &Data, fltarray &Result)
 }
 
 /*********************************************************************/
+void MatOper::svd(dblarray &Mat, dblarray &U, dblarray& S, dblarray& Vt){
+//FCS ADDED to have SVD decomposition and not only inversion.
+// Note a thin SVD is calculated, efficient if number of columns <=number of lines
+// Mat: IN = matrix with P = Mat.ny  and Q = Mat.nx   (P >= Q)
+//  
+   void dsvdcmp(double **a, int m, int n, double w[], double **v);
+   int i,j;
+   dblarray  M1,tMat;
+   
+   int P = Mat.ny(); // number of lines
+   int Q = Mat.nx(); // number of columns
+   
+   U.alloc(Q,P,0);
+   Vt.alloc(Q,Q,0);
+   S.alloc(Q,0,0);
+
+   double **a; // matrix P lines, Q columns
+   double **v; // eigenvectors matrix
+   double *w;  // eigenvalues vector
+   EV.alloc(Q);
+
+   a=dmatrix((long) 1, P, (long)1, Q);
+   v=dmatrix(1, Q, 1, Q);
+   w=dvector(1, Q);
+
+   for(i=1; i <= P; i++)
+     for(j=1; j <= Q; j++)  a[i][j]= Mat(j-1,i-1);
+
+   dsvdcmp(a,P,Q,w,v);
+
+   for(i=0; i < Q; i++) EV(i) =   w[i+1];
+   for(i=0; i < Q; i++) S(i) = EV(i);
+
+   if (Verbose == True) {
+      double CondNumb = condition_nbr();
+      cout << "Matrix Condition number = " << CondNumb << endl;
+      if (1. / CondNumb < 1e-12) cout << "WARNING: Singular matrix" << endl;  
+   }
+   if (Verbose == True){
+      cout << "Eigen values: ";
+      for(i=0; i < Q; i++) cout << EV(i) << " ";
+      cout << endl;
+   }
+   for(i=0; i < P; i++)
+      for(j=0; j < Q; j++) U(j,i) =  a[i+1][j+1];
+
+   for(i=0; i < Q; i++)
+      for(j=0; j < Q; j++) Vt(i,j) =  v[i+1][j+1];
+
+   free_dmatrix(a, 1, P, 1, Q);
+   free_dmatrix(v, 1, Q, 1, Q);
+   free_dvector(w, 1, Q);
+}
+
+/*********************************************************************/
 
 void MatOper::inv_mat_svd(dblarray &Mat, dblarray &InvMat)
 // MATRIX inversion: number of lines >= number of columns
