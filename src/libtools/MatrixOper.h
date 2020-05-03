@@ -53,6 +53,11 @@ class MatOper {
     // Data: IN = 3D array
     // Result: OUT: 3D array  Result(i,j,*) = B # Data(i,j,*)
 
+    void svd(dblarray &Mat, dblarray &U, dblarray& S, dblarray& Vt);
+    // Perform SVD decomposition of input matrix MAT
+    // MATRIX: number of lines >= number of columns
+    // Mat: IN = matrix with P = Mat.ny  and Q = Mat.nx   (P >= Q)
+
     void inv_mat_svd(dblarray &Mat, dblarray &InvMat);
     void inv_mat_svd(dblarray &Mat, dblarray &InvMat, double minT);
     void inv_mat_svd(fltarray &Mat, fltarray &InvMat);
