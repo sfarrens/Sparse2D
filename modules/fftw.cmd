@@ -1,4 +1,6 @@
 #! /bin/bash
+export OPENMP_CFLAGS="$1"
+export CPPFLAGS="$2"
 dest_dir=`pwd`
 touch ChangeLog
 rm -rf autom4te.cache
