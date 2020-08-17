@@ -9,7 +9,7 @@ if(USE_FFTW)
   ExternalProject_Add(fftw3
       URL               http://www.fftw.org/fftw-${FFTWVersion}.tar.gz
       CONFIGURE_COMMAND ""
-      BUILD_COMMAND     "${CMAKE_SOURCE_DIR}/modules/fftw.cmd"
+      BUILD_COMMAND     "${CMAKE_SOURCE_DIR}/modules/fftw.cmd" ${FFTW_CXX_FLAGS} ${FFTW_OMP_FLAGS}
       SOURCE_DIR        "${MODULE_BUILD_DIR}/fftw"
       INSTALL_COMMAND   ""
       BUILD_IN_SOURCE   1
