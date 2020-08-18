@@ -8,7 +8,7 @@ autoreconf --verbose --install --force
 autoreconf --verbose --install --force
 autoreconf --verbose --install --force
 rm -f config.cache
-./configure --prefix=$dest_dir --enable-openmp
+CPPFLAGS=${1} OPENMP_CFLAGS=${2} ./configure --prefix=$dest_dir --enable-openmp
 make -j8
 make install
 make distclean
