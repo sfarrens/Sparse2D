@@ -8,11 +8,33 @@ if(USE_FFTW)
 
   ExternalProject_Add(fftw3
       URL               http://www.fftw.org/fftw-${FFTWVersion}.tar.gz
-      CONFIGURE_COMMAND ""
-      BUILD_COMMAND     "${CMAKE_SOURCE_DIR}/modules/fftw.cmd" ${BigMac_CPPFLAGS} ${BigMac_OPENMP_CFLAGS}
-      SOURCE_DIR        "${MODULE_BUILD_DIR}/fftw"
-      INSTALL_COMMAND   ""
+      SOURCE_DIR        ${MODULE_BUILD_DIR}/fftw
+      CONFIGURE_COMMAND ./configure
+          CC=${CMAKE_C_COMPILER}
+          CXX=${CMAKE_CXX_COMPILER}
+          CPPFLAGS=${BigMac_CPPFLAGS}
+          OPENMP_CFLAGS=${BigMac_OPENMP_CFLAGS}
+          --prefix=${MODULE_BUILD_DIR}/fftw
+          --enable-maintainer-mode
+          --enable-shared
+          --enable-sse2
+          --enable-openmp
+      BUILD_COMMAND     make
+      INSTALL_COMMAND   make install
       BUILD_IN_SOURCE   1
+      COMMAND           ./configure
+          CC=${CMAKE_C_COMPILER}
+          CXX=${CMAKE_CXX_COMPILER}
+          CPPFLAGS=${BigMac_CPPFLAGS}
+          OPENMP_CFLAGS=${BigMac_OPENMP_CFLAGS}
+          --prefix=${MODULE_BUILD_DIR}/fftw
+          --enable-maintainer-mode
+          --enable-shared
+          --enable-single
+          --enable-sse2
+          --enable-openmp
+      COMMAND           make
+      COMMAND           make install
   )
 
   set(FFTW_CXX_FLAGS "-DUSE_FFTW")
