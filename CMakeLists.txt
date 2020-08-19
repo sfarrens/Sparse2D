@@ -53,7 +53,7 @@ option(USE_FFTW "Use FFTW for Fourier transformation" OFF)
 include(BuildFFTW)
 
 # Optional build of NFFT
-option(COMPILE_NFFT "Get and compile NFFT" OFF)
+option(BUILD_NFFT "Download and build NFFT" OFF)
 include(BuildNFFT)
 
 # Set compilation flags

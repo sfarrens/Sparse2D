@@ -1,26 +1,37 @@
-#==============#
-# Compile nFFT #
-#==============#
+#============#
+# Build nFFT #
+#============#
 
-set(NFFTVersion 3.4.0)
+# Set NFFT Version
+set(NFFTVersion 3.5.1)
+set(NFFTHash 8d53164d7cd85ad77e1bd03e36c4a99ef73c77f640e527db816cdc3fcb43d6aa)
 
-if(COMPILE_NFFT)
+if(BUILD_NFFT)
 
-  if(USE_FFTW)
-    set(BUILD_CMD nfft_fftw.cmd)
-  else(USE_FFTW)
-    set(BUILD_CMD nfft.cmd)
-  endif(USE_FFTW)
+  # Set C/C++ compiler and flags
+  set(NFFT_COMPILE
+      CC=${CMAKE_C_COMPILER}
+      CXX=${CMAKE_CXX_COMPILER}
+      OPENMP_CFLAGS=${BigMac_OPENMP_CFLAGS})
 
+  # Set NFFT configuration flags
+  set(NFFT_CONFIG_FLAGS
+      --prefix=${MODULE_BUILD_DIR}
+      --with-fftw3=${MODULE_BUILD_DIR}
+      --enable-openmp)
+
+  # Download and build NFFT
   ExternalProject_Add(nfft
     URL               https://github.com/NFFT/nfft/archive/${NFFTVersion}.tar.gz
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND     "${CMAKE_SOURCE_DIR}/modules/${BUILD_CMD}" ${BigMac_CPPFLAGS} ${BigMac_OPENMP_CFLAGS}
-    SOURCE_DIR        "${MODULE_BUILD_DIR}/nfft"
-    INSTALL_COMMAND   ""
+    URL_HASH          SHA256=${NFFTHash}
+    SOURCE_DIR        ${MODULE_BUILD_DIR}nfft
     BUILD_IN_SOURCE   1
+    CONFIGURE_COMMAND ./bootstrap.sh &&
+                      ./configure ${NFFT_COMPILE} ${NFFT_CONFIG_FLAGS}
+    BUILD_COMMAND     make -j8
+    INSTALL_COMMAND   make install
   )
 
-endif(COMPILE_NFFT)
+endif(BUILD_NFFT)
 
-message(STATUS "nFFT Compilation: ${COMPILE_NFFT}")
+message(STATUS "nFFT Build: ${BUILD_NFFT}")
