@@ -49,18 +49,18 @@ set(MODULE_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/module_build/")
 
 # Optional build of FFTW3
 option(USE_FFTW "Use FFTW for Fourier transformation" OFF)
-include(BuildFFTW3)
+include(BuildFFTW)
 
 # Optional build of NFFT
 option(COMPILE_NFFT "Get and compile NFFT" OFF)
 include(BuildNFFT)
 
-# Set compilation flags Mac OSX or any other system
+# Set compilation flags
 set(CMAKE_CXX_FLAGS_RELEASE "-DNO_DISP_IO -g0 -O2 -fPIC \
--fomit-frame-pointer ${OpenMP_CXX_FLAGS} -Wno-write-strings -DNDEBUG \
-${FFTW_FLAGS}")
+    -fomit-frame-pointer ${OpenMP_CXX_FLAGS} -Wno-write-strings -DNDEBUG \
+    ${BigMac_NOWARN}")
 set(CMAKE_CXX_FLAGS_DEBUG "-DNO_DISP_IO -g -fPIC ${OpenMP_CXX_FLAGS} \
--Wno-write-strings ${FFTW_CXX_FLAGS}")
+    -Wno-write-strings")
 
 # Build tools library
 FILE(GLOB src_lib1  "${PROJECT_SOURCE_DIR}/src/libtools/*.cc")
@@ -68,7 +68,7 @@ include_directories("${PROJECT_SOURCE_DIR}/src/libtools")
 add_library(tools STATIC ${src_lib1})
 target_link_libraries(tools ${CFITSIO_LIBRARIES} ${FFTW_LD_FLAGS})
 if(USE_FFTW)
-  add_dependencies(tools fftw3)
+  add_dependencies(tools fftw)
 endif(USE_FFTW)
 
 # Build sparse1d library
@@ -77,7 +77,7 @@ include_directories("${PROJECT_SOURCE_DIR}/src/libsparse1d")
 add_library(sparse1d STATIC ${src_lib2})
 target_link_libraries(sparse1d ${CFITSIO_LIBRARIES} ${FFTW_LD_FLAGS})
 if(USE_FFTW)
-  add_dependencies(sparse1d fftw3)
+  add_dependencies(sparse1d fftw)
 endif(USE_FFTW)
 
 # Build sparse2d library
@@ -86,7 +86,7 @@ include_directories("${PROJECT_SOURCE_DIR}/src/libsparse2d")
 add_library(sparse2d STATIC ${src_lib2})
 target_link_libraries(sparse2d ${CFITSIO_LIBRARIES} ${FFTW_LD_FLAGS})
 if(USE_FFTW)
-  add_dependencies(sparse2d fftw3)
+  add_dependencies(sparse2d fftw)
 endif(USE_FFTW)
 
 option(SPARSE3D "Build Sparse3D library" ON)
@@ -97,7 +97,7 @@ if(SPARSE3D)
   add_library(sparse3d STATIC ${src_lib2})
   target_link_libraries(sparse3d ${CFITSIO_LIBRARIES} ${FFTW_LD_FLAGS})
   if(USE_FFTW)
-    add_dependencies(sparse3d fftw3)
+    add_dependencies(sparse3d fftw)
   endif(USE_FFTW)
 endif(SPARSE3D)
 message(STATUS "Sparse3D Build: ${SPARSE3D}")
@@ -108,7 +108,7 @@ include_directories("${PROJECT_SOURCE_DIR}/src/libmga2d")
 add_library(mga2d STATIC ${src_mgalib2})
 target_link_libraries(mga2d ${CFITSIO_LIBRARIES} ${FFTW_LD_FLAGS})
 if(USE_FFTW)
-  add_dependencies(mga2d fftw3)
+  add_dependencies(mga2d fftw)
 endif(USE_FFTW)
 
 option(BUILD_MSVST "Build MSVST library" OFF)
