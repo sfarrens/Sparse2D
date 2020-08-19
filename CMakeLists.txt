@@ -23,6 +23,7 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 message(STATUS "Installing to: ${CMAKE_INSTALL_PREFIX}")
 
+# Locate OpenMP
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
   find_package(BigMac 0.0.1 REQUIRED)
 else()
