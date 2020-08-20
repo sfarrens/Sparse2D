@@ -12,7 +12,7 @@ if(BUILD_NFFT)
   set(NFFT_COMPILE
       CC=${CMAKE_C_COMPILER}
       CXX=${CMAKE_CXX_COMPILER}
-      OPENMP_CFLAGS=${BigMac_OPENMP_CFLAGS})
+      ${BigMac_NFFT})
 
   # Set NFFT configuration flags
   set(NFFT_CONFIG_FLAGS

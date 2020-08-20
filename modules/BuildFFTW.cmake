@@ -12,10 +12,7 @@ if(USE_FFTW)
   set(FFTW_COMPILE
       CC=${CMAKE_C_COMPILER}
       CXX=${CMAKE_CXX_COMPILER}
-      LDFLAFS=-L${OpenMP_LIB_PATH}
-      LIBS=${BigMac_OPENMP_CFLAGS}
-      "CPPFLAGS=${BigMac_CPPFLAGS} ${BigMac_NOWARN}"
-      OPENMP_CFLAGS=${BigMac_OPENMP_CFLAGS})
+      ${BigMac_FFTW})
 
   # Set FFTW configuration flags
   set(FFTW_CONFIG_FLAGS
