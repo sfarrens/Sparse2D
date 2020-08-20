@@ -16,13 +16,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 endif()
 message(STATUS "CMake Build Type: ${CMAKE_BUILD_TYPE}")
 
-# Set the default installation path
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sparse2d"
-      CACHE PATH "Setting new default path" FORCE)
-endif()
-message(STATUS "Installing to: ${CMAKE_INSTALL_PREFIX}")
-
 # Locate OpenMP
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
   find_package(BigMac 0.0.1 REQUIRED)
