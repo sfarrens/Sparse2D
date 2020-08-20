@@ -7,8 +7,9 @@ ARG CC=gcc-9
 ARG CXX=g++-9
 
 RUN apt-get update && \
+    apt-get install -y autoconf automake libtool pkg-config && \
     apt-get install -y gcc-9 g++-9 && \
-    apt-get install -y git cmake libcfitsio-dev pkg-config && \
+    apt-get install -y git cmake libcfitsio-dev && \
     apt-get clean
 
 RUN cd home && \
@@ -16,6 +17,6 @@ RUN cd home && \
     cd Sparse2D && \
     mkdir build && \
     cd build && \
-    cmake .. && \
+    cmake .. -DBUILD-MSVST=ON -DUSE_FFTW=ON -DBUILD-NFFT=ON && \
     make && \
     make install
