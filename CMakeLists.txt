@@ -120,7 +120,7 @@ set(BINMR2D mr_transform mr_recons mr_filter mr_deconv mr_info cur_contrast
     mr1d_filter im_isospec)
 if(SPARSE3D)
   set(BINMR2D ${BINMR2D} mr3d_trans mr3d_filter mr3d_recons mr3d_stat
-      mr2d1d_trans)
+      mr2d1d_stat mr2d1d_trans)
 endif(SPARSE3D)
 
 foreach(program ${BINMR2D})
