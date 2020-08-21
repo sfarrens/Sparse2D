@@ -64,7 +64,7 @@ include(BuildNFFT)
 # -------------#
 
 # Build standard Sparse2D libs
-set(sparse2d_libs tools sparse1d sparse2d sparse3d mga2d)
+set(sparse2d_libs mga2d sparse3d sparse2d sparse1d tools)
 foreach(library ${sparse2d_libs})
   build_lib(${library})
 endforeach()
