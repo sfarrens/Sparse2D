@@ -26,7 +26,21 @@ jobs:
     - os: osx
       osx_image: xcode11.3
       language: shell
-      name: "macOS 10.14"
+      name: "macOS 10.14 GCC"
+      env:
+        - CC=gcc-9
+        - CXX=g++-9
+      addons:
+        homebrew:
+          packages:
+            - cmake
+            - cfitsio
+            - gcc@9
+          update: true
+    - os: osx
+      osx_image: xcode11.3
+      language: shell
+      name: "macOS 10.14 AppleClang"
       addons:
         homebrew:
           taps: sfarrens/sf
@@ -41,7 +55,7 @@ before_install:
   - cd build
 
 install:
-  - cmake ..
+  - cmake .. -DBUILD_MSVST=ON
   - make
 
 script:

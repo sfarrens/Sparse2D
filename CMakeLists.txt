@@ -3,14 +3,16 @@
 #################
 
 cmake_minimum_required(VERSION 3.0.0)
+project(sparse2d)
+
+# Include modules in CMake module path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules/")
+
+# Load CMake tools
 include(ExternalProject)
 include(FindPkgConfig)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules/")
-
-project(sparse2d)
-
-# Load CMake function
+# Load custom CMake function
 include(functions)
 
 # Set build type
@@ -37,11 +39,14 @@ find_cfitsio()
 set(MODULE_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/module_build/")
 
 # Set compilation flags
-set(CMAKE_CXX_FLAGS_RELEASE "-DNO_DISP_IO -g0 -O2 -fPIC \
-    -fomit-frame-pointer ${OpenMP_CXX_FLAGS} -Wno-write-strings -DNDEBUG \
-    ${BigMac_NOWARN}")
-set(CMAKE_CXX_FLAGS_DEBUG "-DNO_DISP_IO -g -fPIC ${OpenMP_CXX_FLAGS} \
-    -Wno-write-strings")
+set(CMAKE_CXX_FLAGS
+  "${CMAKE_CXX_FLAGS} -DNO_DISP_IO -fPIC -Wno-write-strings\
+  ${OpenMP_CXX_FLAGS} ${BigMac_NOWARN}"
+)
+set(CMAKE_CXX_FLAGS_RELEASE
+  "${CMAKE_CXX_FLAGS_RELEASE} -g0 -fomit-frame-pointer"
+)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
 # ---- #
 # FFTW #
