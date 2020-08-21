@@ -28,7 +28,7 @@ if(BUILD_NFFT)
     BUILD_IN_SOURCE   1
     CONFIGURE_COMMAND ./bootstrap.sh &&
                       ./configure ${NFFT_COMPILE} ${NFFT_CONFIG_FLAGS}
-    BUILD_COMMAND     make -j8
+    BUILD_COMMAND     export LD_LIBRARY_PATH=${MODULE_BUILD_DIR}lib && make -j8
     INSTALL_COMMAND   make install
   )
 
