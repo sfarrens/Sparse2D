@@ -1,85 +1,113 @@
 # Sparse2D
 [![Build Status](https://travis-ci.org/CosmoStat/Sparse2D.svg?branch=master)](https://travis-ci.org/CosmoStat/Sparse2D)
+[![cpp](https://img.shields.io/badge/language-C%2B%2B-red)](https://isocpp.org/std/the-standard)
 
 Sparse2D provides an array of sparsity based tools and a convenient C++ library for performing various wavelet tranforms.
 
-This package is part of the iSAP suite, available at the [CosmoStat webpage](http://www.cosmostat.org/software/isap)
+This package is part of the iSAP suite, available on the [CosmoStat website](http://www.cosmostat.org/software/isap).
+
+Python bindings to Sparse2D are provided in [PySAP](https://github.com/CEA-COSMIC/pysap). PySAP handles Sparse2D installation internally.
 
 ## Installation instructions
 
 ### Prerequisites
 
-The following softwares are required:
+   - C/C++ compiler
+   - [CMake](http://www.cmake.org)
+   - [CFITSIO](https://heasarc.gsfc.nasa.gov/fitsio/) ( >V3.31)
+   - [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
+   - [BigMac](https://github.com/sfarrens/bigmac) (For macOS AppleClang compiler)
 
-   - C++ compiler (gcc strongly recommended)
-   - Recent version of CFITSIO ( >V3.31) needs to be first installed.
-   - CMake (http://www.cmake.org) and pkg-config
+Please use a package management tool to properly install cfistio and the other dependencies on linux (*e.g.* `apt` on Ubuntu or `brew` on macOS).
 
-Please use a package management tool to properly install cfistio and the other dependencies. On linux you can use apt (Ubuntu).
-On Mac OSX we recommend homebrew, the command "brew install cfitsio" will install the cfitsio package.
+### Docker
+
+If you have [Docker](https://www.docker.com/) installed, you can pull the latest build of the Sparse2D image from [Docker Hub](TBD).
+
+```bash
+$ docker pull cosmostat/sparse2d
+```
+
+No further installation is required.
+
+To run this image on data in your current working directory, simply run:
+
+```bash
+$ docker run -v ${PWD}:/workdir -it cosmostat/sparse2d /bin/bash -c "cd workdir && <EXECUTABLE>"
+```
+
+where `<EXECUTABLE>` is one of the Sparse2D binaries. The reference to `${PWD}` can be replaced by the path to any directory on your system and options can be passed to `<EXECUTABLE>` inside the double quotes.
+
+### Homebrew
+
+Sparse2D can be built on macOS using [Homebrew](https://brew.sh/).
+
+```bash
+$ brew tap cosmostat/science
+$ brew install sparse2d
+```
+
+The Homebrew formula handles all of the required dependencies.
 
 ### Building from Source
 
-To configure the sparse2d toolbox for your machine type:
+#### Basic Sparse2D
 
-```bash
-  $ mkdir build
-  $ cd build
-  $ cmake ..
+Clone the repository:
+
+```
+$ git clone https://github.com/CosmoStat/Sparse2D.git
+$ cd Sparse2D
 ```
 
-Once CMake is done, to create the toolbox and compile all the C++ files, type:
+Create a build directory for Sparse2D:
 
 ```bash
+$ mkdir build
+$ cd build
+```
+
+Build Sparse2D:
+
+```bash
+  $ cmake ..
   $ make
   $ make install
 ```
 
-The library, headers and executables will by default be installed in a directory
-called `sparse2d` inside the current build directory. The default install directory
-can be changed by running:
+#### MSVST
+
+Additional MSVST binaries can be build with the following option:
 
 ```bash
-  $ cmake .. -DCMAKE_INSTALL_PREFIX:PATH=<PATH>
+  $ cmake .. -DBUILD_MSVST=ON
 ```
 
-You may want to add the bin directory to your path for easy access to the sparse2d executables.
+#### FFTW
 
-Sparse2D can also be built using [FFTW3](http://www.fftw.org/) and/or
-[nFFT](https://www-user.tu-chemnitz.de/~potts/nfft/) with the following options:
+Sparse2D can also be built using [FFTW3](http://www.fftw.org/) with the following option:
 
 ```bash
-  $ cmake .. -DUSE_FFTW=ON -DCOMPILE_NFFT=ON
+  $ cmake .. -DUSE_FFTW=ON
 ```
+
+#### nFFT
+
+Sparse2D can also build [nFFT](https://github.com/NFFT/nfft) libraries with the following options:
+
+```bash
+  $ cmake .. -DUSE_FFTW=ON -DBUILD_NFFT=ON
+```
+
+#### Non-default Compiler
 
 Finally, if you wish to build using a compiler other than the default on your
-system (*e.g.* gcc on macOS) you can do so as follows:
+system (*e.g.* `gcc` on macOS) you can do so as follows:
 
 ```bash
   $ CC=gcc CXX=g++ cmake ..
 ```
 
-### macOS
-
-Sparse2D can be built on macOS using [Homebrew](https://brew.sh/). Before doing so, you should make sure you have a C compiler that supports OpenMP (note that the native clang does not) and cmake. These requirements can also be installed with Homebrew as follows
-
-```bash
-  $ brew install gcc cmake
-```
-
-Once these packages have been installed, Sparse2D can be installed with
-
-```bash
-  $ brew tap cosmostat/science
-  $ brew install sparse2d
-```
-
-By default this package builds with Homebrew gcc, however you can also build with an alternative compiler as follows
-
-```bash
-  $ brew install sparse2d --cc=COMPILER
-```
-
 ## Usage
 
-The two main executables of the package are **mr_transform** and **mr_filter**, see the instructions in the README/ folder for usage examples
+The two main executables of the package are `mr_transform` and `mr_filter`, see the instructions in the [README](./README) folder for usage examples
