@@ -39,5 +39,5 @@ endfunction()
 # Build binary
 function(build_bin program libs target_path ext)
   add_executable(${program} "${PROJECT_SOURCE_DIR}/${target_path}/${program}.${ext}")
-  target_link_libraries(${program} ${libs})
+  target_link_libraries(${program} ${CFITSIO_LIBRARIES} ${FFTW_LD_FLAGS} ${libs})
 endfunction()

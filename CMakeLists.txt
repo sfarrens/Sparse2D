@@ -83,7 +83,8 @@ foreach(program ${sparse2d_targets})
 endforeach(program)
 
 # Install libraries
-install(TARGETS ${sparse2d_libs} DESTINATION lib)
+install(TARGETS ${sparse2d_libs} DESTINATION lib EXPORT sparse2d_libs)
+install(EXPORT sparse2d_libs DESTINATION lib/cmake)
 
 # Install binaraies
 install(TARGETS ${sparse2d_targets} DESTINATION bin)
