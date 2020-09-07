@@ -70,9 +70,9 @@ $ cd build
 Build Sparse2D:
 
 ```bash
-  $ cmake ..
-  $ make
-  $ make install
+$ cmake ..
+$ make
+$ make install
 ```
 
 #### MSVST
@@ -80,15 +80,21 @@ Build Sparse2D:
 Additional MSVST binaries can be build with the following option:
 
 ```bash
-  $ cmake .. -DBUILD_MSVST=ON
+$ cmake .. -DBUILD_MSVST=ON
 ```
 
 #### FFTW
 
-Sparse2D can also be built using [FFTW3](http://www.fftw.org/) with the following option:
+Sparse2D can also be built using pre-installed [FFTW](http://www.fftw.org/) libraries with the following option:
 
 ```bash
-  $ cmake .. -DUSE_FFTW=ON
+$ cmake .. -DUSE_FFTW=ON
+```
+
+Alternatively, Sparse2D can build FFTW libraries from source as follows:
+
+```bash
+$ cmake .. -DUSE_FFTW=ON -DBUILD_FFTW=ON
 ```
 
 #### nFFT
@@ -96,7 +102,7 @@ Sparse2D can also be built using [FFTW3](http://www.fftw.org/) with the followin
 Sparse2D can also build [nFFT](https://github.com/NFFT/nfft) libraries with the following options:
 
 ```bash
-  $ cmake .. -DUSE_FFTW=ON -DBUILD_NFFT=ON
+$ cmake .. -DBUILD_FFTW=ON -DBUILD_NFFT=ON
 ```
 
 #### Non-default Compiler
@@ -105,7 +111,7 @@ Finally, if you wish to build using a compiler other than the default on your
 system (*e.g.* `gcc` on macOS) you can do so as follows:
 
 ```bash
-  $ CC=gcc CXX=g++ cmake ..
+$ CC=gcc CXX=g++ cmake ..
 ```
 
 ## Usage

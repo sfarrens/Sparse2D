@@ -12,7 +12,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules/")
 include(ExternalProject)
 include(FindPkgConfig)
 
-# Load custom CMake function
+# Load custom CMake functions
 include(functions)
 
 # Set build type
@@ -52,8 +52,11 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 # FFTW #
 # -----#
 
-# Optional build of FFTW
+# Optional use of FFTW
 option(USE_FFTW "Use FFTW for Fourier transformation" OFF)
+
+# Optional build of FFTW
+option(BUILD_FFTW "Build FFTW libraries" OFF)
 include(BuildFFTW)
 
 # ---- #
