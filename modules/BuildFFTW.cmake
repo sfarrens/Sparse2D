@@ -19,6 +19,11 @@ elseif(USE_FFTW AND BUILD_FFTW)
   set(FFTW_LD_FLAGS "-L ${MODULE_BUILD_DIR}/lib ${fftw_lib_list}")
 endif()
 
+# Set FFTW flags
+if(USE_FFTW)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
+endif()
+
 # Build FFTW
 if(BUILD_FFTW)
 
