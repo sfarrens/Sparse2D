@@ -6,7 +6,26 @@
 set(FFTWVersion 3.3.8)
 set(FFTWHash 8aac833c943d8e90d51b697b27d4384d)
 
+# Set FFTW libraries to use
+set(fftw_lib_list "-lfftw3f_omp -lfftw3_omp -lfftw3f -lfftw3 -lm")
+
+# Find FFTW
+if(USE_FFTW AND NOT BUILD_FFTW)
+  find_package(FFTW3 REQUIRED)
+  message(STATUS "Checking for module 'fftw3'")
+  message(STATUS "  Found fftw3, version ${FFTW3_VERSION}")
+  set(FFTW_LD_FLAGS "-L ${FFTW3_LIBRARY_DIRS} ${fftw_lib_list}")
+elseif(USE_FFTW AND BUILD_FFTW)
+  set(FFTW_LD_FLAGS "-L ${MODULE_BUILD_DIR}/lib ${fftw_lib_list}")
+endif()
+
+# Set FFTW flags
 if(USE_FFTW)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
+endif()
+
+# Build FFTW
+if(BUILD_FFTW)
 
   # Set C/C++ compiler and flags
   set(FFTW_COMPILE
@@ -36,14 +55,7 @@ if(USE_FFTW)
       COMMAND           make clean
   )
 
-  # Set FFTW flags for CMake project
-  set(FFTW_LD_FLAGS "-L ${MODULE_BUILD_DIR}/lib -lfftw3f_omp -lfftw3_omp \
-      -lfftw3f -lfftw3 -lm")
+endif()
 
-else(USE_FFTW)
-
-  set(FFTW_LD_FLAGS "")
-
-endif(USE_FFTW)
-
-message(STATUS "FFTW Build: ${USE_FFTW}")
+message(STATUS "Use FFTW: ${USE_FFTW}")
+message(STATUS "FFTW Build: ${BUILD_FFTW}")

@@ -8,9 +8,9 @@ branches:
 jobs:
   include:
     - os: linux
-      dist: bionic
+      dist: focal
       compiler: gcc
-      name: "Linux Bionic"
+      name: "Ubuntu Focal"
       env:
         - CC=gcc-9
         - CXX=g++-9
@@ -24,9 +24,9 @@ jobs:
             - cmake
             - libcfitsio-dev
     - os: osx
-      osx_image: xcode11.3
+      osx_image: xcode12
       language: shell
-      name: "macOS 10.14 GCC"
+      name: "macOS 10.15 GCC"
       env:
         - CC=gcc-9
         - CXX=g++-9
@@ -38,9 +38,9 @@ jobs:
             - gcc@9
           update: true
     - os: osx
-      osx_image: xcode11.3
+      osx_image: xcode12
       language: shell
-      name: "macOS 10.14 AppleClang"
+      name: "macOS 10.15 AppleClang"
       addons:
         homebrew:
           taps: sfarrens/sf
