@@ -1,55 +1,62 @@
 # System Set-Up
 language: cpp
 
-# install dependencies
-addons:
-  apt:
-    packages:
-      - cmake
-      - libcfitsio3-dev
-  homebrew:
-    packages: &macos_packages
-      - cmake
-      - pkgconfig
-      - cfitsio
-    update: true
+branches:
+  only:
+    - master
 
-matrix:
+jobs:
   include:
     - os: linux
-    - os: osx
-      name: "macOS with GCC"
-      osx_image: xcode11.3
+      dist: focal
+      compiler: gcc
+      name: "Ubuntu Focal"
       env:
-        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+        - CC=gcc-9
+        - CXX=g++-9
       addons:
-        homebrew:
+        apt:
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
           packages:
-            - gcc
-            - *macos_packages
+            - gcc-9
+            - g++-9
+            - cmake
+            - libcfitsio-dev
     - os: osx
-      name: "macOS with AppleClang"
-      osx_image: xcode11.3
+      osx_image: xcode12
+      language: shell
+      name: "macOS 10.15 GCC"
+      env:
+        - CC=gcc-9
+        - CXX=g++-9
       addons:
         homebrew:
           packages:
-            - libomp
-            - *macos_packages
+            - cmake
+            - cfitsio
+            - gcc@9
+          update: true
+    - os: osx
+      osx_image: xcode12
+      language: shell
+      name: "macOS 10.15 AppleClang"
+      addons:
+        homebrew:
+          taps: sfarrens/sf
+          packages:
+            - cmake
+            - cfitsio
+            - bigmac
+          update: true
 
 before_install:
-  - eval "${MATRIX_EVAL}"
-
-# set up installation
-install:
   - mkdir build
   - cd build
-  - cmake .. -DRUN_TESTS=OFF
 
-# build package and install
+install:
+  - cmake .. -DBUILD_MSVST=ON
+  - make
+
 script:
-  - make install
-  # - make test
-
-# notification settings
-notification:
-  email: false
+  - make test
